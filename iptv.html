@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPTV - SuperFlix</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        header {
+            background-color: #1e1e1e;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            color: #4caf50;
+        }
+
+        header .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        header .search-bar input {
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            width: 200px;
+        }
+
+        header .search-bar select {
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .channel {
+            background: #242424;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            max-width: 300px;
+            width: 100%;
+        }
+
+        .channel img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .channel-info {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .channel-info h2 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .channel-info .tag {
+            display: inline-block;
+            background: #d32f2f;
+            color: #ffffff;
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .channel-info a {
+            display: inline-block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #4caf50;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .channel-info a:hover {
+            color: #81c784;
+        }
+
+        footer {
+    background-color: #1e1e1e;
+    color: #cccccc;
+    padding: 30px 20px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 220px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.footer-section h3 {
+    font-size: 1.1rem;
+    color: #4caf50;
+    margin-bottom: 10px;
+}
+
+.footer-section p, .footer-section ul {
+    font-size: 0.9rem;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin: 5px 0;
+}
+
+.footer-section a {
+    color: #cccccc;
+    text-decoration: none;
+}
+
+.footer-section a:hover {
+    color: #4caf50;
+}
+
+.social-icons a {
+    color: #cccccc;
+    font-size: 1.5rem;
+    margin: 0 10px;
+    transition: color 0.3s;
+}
+
+.social-icons a:hover {
+    color: #ff0000;
+}
+
+.footer-bottom {
+    border-top: 1px solid #444444;
+    padding-top: 15px;
+    font-size: 0.8rem;
+}
+
+.footer-bottom a {
+    color: #ff0000;
+}
+
+.footer-bottom a:hover {
+    color: #ff0000;
+}
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            font-family: 'Inter' sans-serif;
+
+        }
+
+        .pagination button {
+            background: #242424;
+            color: #ffffff;
+            border: none;
+            padding: 10px 15px;
+            margin: 0 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-family: 'Inter' sans-serif;
+
+        }
+
+        .pagination button:hover {
+            background: #4caf50;
+            font-family: 'Inter' sans-serif;
+        }
+
+        .no-results {
+            text-align: center;
+            margin-top: 20px;
+            color: #ff5722;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html">
+            <img src="https://lh3.googleusercontent.com/blogger_img_proxy/AEn0k_sX2sxXEBu36QwAP84htvjSiSjUygItsYLIrD15mRfbQ7ENJh6Aqqm-fVNjcuZ5GsYLzw_bc1ZhgwS_y-TlRMQSecm0AkbmiIbJ89wXDwB7x1OjzD8HnY7rD8U=w800" 
+                 alt="plataforma de anime >3" style="max-height: 60px; width: auto;">
+        </a>
+                <div class="search-bar">
+            <input type="text" id="search" placeholder="Buscar canais..." oninput="filterChannels()">
+            <select id="tagFilter" onchange="filterChannels()">
+                <option value="all">Todos</option>
+                <option value="Ao Vivo">Ao Vivo</option>
+            </select>
+        </div>
+    </header>
+    <div class="content" id="channelList">
+    </div>
+    <div class="no-results" id="noResults" style="display: none;">
+        parece que o canal que você está procurando nãoo existe
+    </div>
+    <div class="pagination" id="pagination" style="display: none;">
+    </div>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quem Somos</h3>
+                <p>
+                    A nossa plataforma foi criada com o intuito de revolucionar a experiência de IPTV, oferecendo conteúdos de altíssima qualidade e um compromisso inabalável com a segurança e a privacidade dos nossos usuários. Idealizada por um visionário, com habilidades e paixão pelo que faz, aqui você tem acesso ao melhor do entretenimento online, de forma prática, segura e sem complicação. 
+                    <br>
+
+----------------------------------
+<br>
+
+                    Venha fazer parte desse projeto inovador e descubra como sua experiência com IPTV pode ser ainda mais gratificante, além de potencialmente lucrativa.
+                </p>
+                            </div>
+    
+            <div class="footer-section">
+                <h3>Contatos</h3>
+                <p>Caso tenha alguma dúvida ou sugestão, entre em contato conosco:</p>
+                <ul>
+                    <li><a href="mailto:suporte@iptvsuperflix.com">suporte@embreve.com</a></li>
+                    <li><a href="tel:+5521975107105">+55 21975107105</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-section">
+                <h3>links</h3>
+                <ul>
+                    <li><a href="/termos-de-uso">Termos de Uso</a></li>
+                    <li><a href="/politica-de-privacidade">Política de Privacidade</a></li>
+                    <li><a href="/faq">FAQ</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-section">
+                <h3>Redes Sociais</h3>
+                <div class="social-icons">
+                    <a href="gabriel" target="_blank"><i class="ri-github-fill"></i></a>
+                    <a href="gabriel" target="_blank"><i class="ri-twitter-fill"></i></a>
+
+                </div>
+            </div>
+        </div>
+    
+        <div class="footer-bottom">
+            <p>Todos canais mostrados aqui são puxados via API, ou seja, nunca vistos pelos administradores do site.</p>
+            <p>Caso veja algum conteúdo que contenha menores de idade, pode nos enviar uma mensagem via <a href="mailto:suporte@iptvsuperflix.com">e-mail</a>.</p>
+        </div>
+    </footer>
+    
+    <div id="blockScreen" class="block">
+        <div class="message">
+            <p>Não colabore com atividades fraudulentas!</p>
+        </div>
+    </div>
+
+
+<style>
+    .block {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.block .message {
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 8px;
+}
+
+.block h2 {
+    color: red;
+    font-size: 2rem;
+}
+
+.block p {
+    margin: 10px 0;
+}
+::-webkit-scrollbar {
+    width: 0.5rem;
+}
+::-webkit-scrollbar-thumb {
+    background: rgb(255, 0, 0);
+}
+::-webkit-scrollbar-track {
+    background: rgb(47, 51, 79);
+}
+</style>
+    
+
+    <script>
+console.log('%cOpa opa! Se alguém pedir o link deste app ou seu login, não passe! Lembre-se de não colar nada aqui também.', 
+    'color: #f44336; font-size: 16px; font-weight: bold; background-color: #fff3e0; padding: 10px; border-radius: 5px; border: 2px solid #f44336; font-family: "Inter", sans-serif;'
+);
+
+
+const channels = [
+  { name: "HOTGO XXX", tag: "Ao Vivo", img: "https://painel.superflixapi.dev/img/poster/4/135/aded4ab15f7dfc70bae571361a473d34eab6be24161fb3f824a635cddbf834d2.png", link: "https://superflixapi.dev/tv/hotgo-xxx" },
+  { name: "Cartoon Network", tag: "Ao Vivo", img: "https://painel.superflixapi.dev/img/poster/4/105/a72987ffd3997cb043ecd9faae36cebc34348c21609f10d9e4b15e02981a22b4.png", link: "https://superflixapi.dev/tv/cartoon-network" },
+  { name: "BBB 24", tag: "Ao Vivo", img: "https://painel.superflixapi.dev/img/poster/4/130/a9d6f51c122fa2fbf96494812301cdf07a6dfb430558001fe08eab469fab6e7a.png", link: "https://superflixapi.dev/tv/bbb-24" },
+  { name: "Sex Privé (XXX)", tag: "Ao Vivo", img: "https://painel.superflixapi.dev/img/poster/4/132/95ea8e8026ed956ddbd68679d269dfce17bdd590b9aa3568e1c76348fee8080b.png", link: "https://superflixapi.dev/tv/sex-prive-xxx" },
+  { name: "CNN Brasil", tag: "Ao Vivo", img: "https://painel.superflixapi.dev/img/poster/4/107/77d238768f6f79af4a79e60c5827baa78aabc9322892006bd0c3f1fb9b6832af.png", link: "https://superflixapi.dev/tv/cnn-brasil" },
+  { name: "Discovery Channel", tag: "Ao Vivo", img: "https://painel.superflixapi.dev/img/poster/4/109/99ba84e9fb1bd887cca85c6a15dac78b106bee6ac0fa247978acdb50740b7b16.png", link: "https://superflixapi.dev/tv/discovery-channel" },
+  { name: "Discovery Kids", tag: "Ao Vivo", img: "https://painel.superflixapi.dev/img/poster/4/104/5dedd741e5ea93af48e027ce85c384bad181c8ee1f87b68962de9f3dbc28a436.png", link: "https://superflixapi.dev/tv/discovery-kids" },
+  { name: "Disney Channel", tag: "Ao Vivo", img: "https://painel.superflixapi.dev/img/poster/4/103/3133ab87bf8ce2a82687e9ab40b8c6d8b7405520f5a7f6a503b1bc8c4803f131.png", link: "https://superflixapi.dev/tv/disney-channel" },
+  { name: "Gloobinho", tag: "Ao Vivo", img: "https://painel.superflixapi.dev/img/poster/4/102/bf20fe3c4f500881b8f880d7396b4f52d72f13ff0bcada20ec62f6b6dc4466cf.png", link: "https://superflixapi.dev/tv/gloobinho" },
+  { name: "Star+ 3", tag: "Ao Vivo", img: "https://painel.superflixapi.dev/img/poster/4/114/5bb1cfe04a1163b51e103c345ebb735bd63086dd768eebff76f1b38d60b418f2.png", link: "https://superflixapi.dev/tv/star-3" },
+  { name: "Telecine Pipoca", tag: "Ao Vivo", img: "https://d1muf25xaso8hp.cloudfront.net/https://painel.superflixapi.dev/img/poster/4/80/43e8388fcb28a23b70c9079bf99cb855092fa665c1f36b55fe843b822ed72026.png", link: "https://superflixapi.dev/tv/telecine-pipoca" },
+
+
+
+  
+        ];
+        const channelsPerPage = 10;
+        let currentPage = 1;
+
+        function renderChannels() {
+            const channelList = document.getElementById("channelList");
+            const noResults = document.getElementById("noResults");
+            const pagination = document.getElementById("pagination");
+
+            const start = (currentPage - 1) * channelsPerPage;
+            const end = start + channelsPerPage;
+            const filteredChannels = channels.filter(channel => {
+                const searchValue = document.getElementById("search").value.toLowerCase();
+                const tagValue = document.getElementById("tagFilter").value;
+                const matchesSearch = channel.name.toLowerCase().includes(searchValue);
+                const matchesTag = tagValue === "all" || channel.tag === tagValue;
+                return matchesSearch && matchesTag;
+            });
+
+            channelList.innerHTML = "";
+            if (filteredChannels.length === 0) {
+                noResults.style.display = "block";
+                pagination.style.display = "none";
+                return;
+            }
+
+            noResults.style.display = "none";
+            pagination.style.display = "flex";
+            const visibleChannels = filteredChannels.slice(start, end);
+            visibleChannels.forEach(channel => {
+                const channelElement = document.createElement("div");
+                channelElement.className = "channel";
+                channelElement.innerHTML = `
+                    <img src="${channel.img}" alt="${channel.name}">
+                    <div class="channel-info">
+                        <span class="tag">${channel.tag}</span>
+                        <h2>${channel.name}</h2>
+                        <a href="${channel.link}" target="_blank"><i class="ri-play-circle-line"></i> Assistir Agora</a>
+                    </div>
+                `;
+                channelList.appendChild(channelElement);
+            });
+
+            renderPagination(filteredChannels.length);
+        }
+
+        function renderPagination(totalChannels) {
+            const pagination = document.getElementById("pagination");
+            const totalPages = Math.ceil(totalChannels / channelsPerPage);
+            pagination.innerHTML = "";
+
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement("button");
+                button.textContent = i;
+                button.className = i === currentPage ? "active" : "";
+                button.onclick = () => {
+                    currentPage = i;
+                    renderChannels();
+                };
+                pagination.appendChild(button);
+            }
+        }
+
+        function filterChannels() {
+            currentPage = 1;
+            renderChannels();
+        }
+
+        renderChannels();
+    </script>
+</body>
+</html>
